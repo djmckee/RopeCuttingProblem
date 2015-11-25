@@ -37,8 +37,12 @@ public class Rope implements Comparable<Rope> {
             return 0;
         } else if (this.getLength() > o.getLength()) {
             // This rope is longer than the other
+            return 1;
+        } else {
+            // This rope must be shorter than the other one
+            return -1;
         }
-        return 0;
+
     }
 
     /**
