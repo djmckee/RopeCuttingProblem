@@ -103,7 +103,7 @@ public class RopeCuttingProblem {
 
         // Is the order complete?
         if (!orderComplete) {
-            // Order not completed because we have no suitable ropes, order a new rope, try again.
+            // Order not completed because we have no suitable ropes, order a new rope, then try again.
             orderNewRope();
 
             // Recursively call the rope cutting again, hoping the new rope is long enough to cut from it...
@@ -111,6 +111,7 @@ public class RopeCuttingProblem {
         }
 
     }
+
 
     /**
      * An internal method to pre-compute random length ropes into the ropes array, so as not to count this operation in
