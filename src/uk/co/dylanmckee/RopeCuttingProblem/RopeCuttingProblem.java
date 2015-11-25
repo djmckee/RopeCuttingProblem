@@ -1,6 +1,7 @@
 package uk.co.dylanmckee.RopeCuttingProblem;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Purpose: A Java solution to the Rope Cutting Problem, for CSC2023 Algorithm Design Assignment 2.
@@ -114,6 +115,61 @@ public class RopeCuttingProblem {
 
 
     /**
+     * A public method to expose the best fit rope cutting algorithm.
+     */
+    public void performBestFitRopeCutting() {
+        // Iterate through the orders array, performing best fit rope cutting for each one...
+        for (int orderLength : arrayOfOrderLengths) {
+            // Perform best fit rope cutting algorithm for this order
+            bestFitRopeCutting(orderLength);
+        }
+
+    }
+
+    /**
+     * An implementation of the BFRCP algorithm; this algorithm cuts from the first rope that the cut fits.
+     */
+    private void bestFitRopeCutting(int orderLength) {
+        // Sort the ropes array in ascending order, so that the rope with the least amount left on it comes first,
+        // therefore we start at the rope most likely has the least sufficient free length left on it...
+        Collections.sort(ropes);
+
+        // A flag to mark if the order's complete...
+        boolean orderComplete = false;
+
+        // Iterate through the array, from shortest rope...
+        for (int i = 0; i < ropes.size(); i++) {
+            // Get the rope being iterated...
+            Rope rope = ropes.get(i);
+
+            // Is it long enough?
+            if (rope.getLength() >= orderLength) {
+                // Yes! Cut the order from this rope...
+                cutLengthFromRope(rope, orderLength);
+
+                // Order complete!
+                orderComplete = true;
+
+                // Now that we've successfully done the cutting order, stop looping.
+                break;
+            }
+
+            // If the rope isn't long enough, continue on to the next one
+
+        }
+
+        // Is the order complete?
+        if (!orderComplete) {
+            // Order not completed because we have no suitable ropes, order a new rope, then try again.
+            orderNewRope();
+
+            // Recursively call the rope cutting again, hoping the new rope is long enough to cut from it...
+            bestFitRopeCutting(orderLength);
+        }
+
+    }
+
+    /**
      * An internal method to pre-compute random length ropes into the ropes array, so as not to count this operation in
      * the time taken to perform the actual rope cutting algorithms, making the test fairer & reducing code duplication.
      * The length of the rope is always within the bounds of ropes supplied by the manufacturer.
@@ -126,7 +182,10 @@ public class RopeCuttingProblem {
 
         for (int i = 0; i < numberOfOrders; i++) {
             // Randomly generate a new order length in the order bounds...
+            int randomOrderLength = generateRandomInteger(MIN_ORDER_LENGTH , MAX_ORDER_LENGTH);
 
+            // Add to the array of order lengths
+            arrayOfOrderLengths[i] = randomOrderLength;
         }
 
         // Generate a rope for every order...

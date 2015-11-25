@@ -15,6 +15,7 @@ public class Main {
 	    // Create Rope Cutting Problem test instance
         RopeCuttingProblem ropeCuttingProblemTest = new RopeCuttingProblem(NUMBER_OF_ORDERS);
 
+        ropeCuttingProblemTest.performBestFitRopeCutting();
 
     }
 }
