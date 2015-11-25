@@ -7,7 +7,6 @@ import java.util.Collections;
  * Purpose: A Java solution to the Rope Cutting Problem, for CSC2023 Algorithm Design Assignment 2.
  * Author: Dylan McKee
  * Date: 25/11/2015
- *
  */
 public class RopeCuttingProblem {
     // The minimum length of the rope from suppliers, in meters
@@ -35,9 +34,13 @@ public class RopeCuttingProblem {
     // The number of orders, as passed to the constructor
     private int numberOfOrders;
 
+    // The number of coils of rope supplied from the manufacturer in addition to those pre-computed.
+    private int numberOfCoilsOfRopeOrderedAdditionally;
+
 
     /**
      * Construct an instance of the RopeCuttingProblem, instantiate fields.
+     *
      * @param numberOfOrders The number of orders to be simulated in this rope cutting problem.
      */
     public RopeCuttingProblem(int numberOfOrders) {
@@ -107,6 +110,8 @@ public class RopeCuttingProblem {
             // Order not completed because we have no suitable ropes, order a new rope, then try again.
             orderNewRope();
 
+            numberOfCoilsOfRopeOrderedAdditionally++;
+
             // Recursively call the rope cutting again, hoping the new rope is long enough to cut from it...
             firstFitRopeCutting(orderLength);
         }
@@ -163,6 +168,8 @@ public class RopeCuttingProblem {
             // Order not completed because we have no suitable ropes, order a new rope, then try again.
             orderNewRope();
 
+            numberOfCoilsOfRopeOrderedAdditionally++;
+
             // Recursively call the rope cutting again, hoping the new rope is long enough to cut from it...
             bestFitRopeCutting(orderLength);
         }
@@ -173,7 +180,7 @@ public class RopeCuttingProblem {
      * An internal method to pre-compute random length ropes into the ropes array, so as not to count this operation in
      * the time taken to perform the actual rope cutting algorithms, making the test fairer & reducing code duplication.
      * The length of the rope is always within the bounds of ropes supplied by the manufacturer.
-     *
+     * <p>
      * This method also pre-computes a random length for every order, and fills the orders array.
      */
     private void generateRopesAndOrders() {
@@ -182,7 +189,7 @@ public class RopeCuttingProblem {
 
         for (int i = 0; i < numberOfOrders; i++) {
             // Randomly generate a new order length in the order bounds...
-            int randomOrderLength = generateRandomInteger(MIN_ORDER_LENGTH , MAX_ORDER_LENGTH);
+            int randomOrderLength = generateRandomInteger(MIN_ORDER_LENGTH, MAX_ORDER_LENGTH);
 
             // Add to the array of order lengths
             arrayOfOrderLengths[i] = randomOrderLength;
@@ -200,7 +207,6 @@ public class RopeCuttingProblem {
      * An internal method to order new ropes. This can be called when precomputing the ropes for some orders, or, if
      * there's no suitable ropes in stock, this method can be called to have a new rope instantly delivered from the
      * manufacturer and added to the ropes array.
-     *
      */
     private void orderNewRope() {
         // Instantiate the new rope object
@@ -224,7 +230,6 @@ public class RopeCuttingProblem {
      * An internal method to remove the specified length from the specified rope. If the rope falls under the threshold
      * to be kept in stock, then this method also removes it from stock after deducting the length.
      * This method helps to reduce code duplication between the two different algorithm implementations.
-     *
      */
     private void cutLengthFromRope(Rope rope, int lengthToCut) {
         // Do some basic bounds checking...
@@ -259,7 +264,7 @@ public class RopeCuttingProblem {
         double result = (randomMultiplier * (max - min));
 
         // Cast to an integer (adding 0.5 first to ensure it rounds up)
-        int wholeResult = (int)(result + 0.5);
+        int wholeResult = (int) (result + 0.5);
 
         // And add on the minimum to make sure it's in bounds
         wholeResult = wholeResult + min;
@@ -267,6 +272,15 @@ public class RopeCuttingProblem {
         // Return integer result
         return wholeResult;
 
+    }
+
+    /**
+     * Returns the number of coils of rope supplied by the manufacturer.
+     *
+     * @return an integer containing the number of coils of rope supplied by the manufacturer
+     */
+    public int getNumberOfCoilsOfRopeOrderedAdditionally() {
+        return numberOfCoilsOfRopeOrderedAdditionally;
     }
 
 

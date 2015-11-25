@@ -4,13 +4,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Purpose: A simple JUnit unit test case to test the Rope data structure class.
  * Author: Dylan McKee
  * Date: 25/11/2015
- *
  */
 public class RopeTest {
     // A test Rope instance
@@ -52,11 +52,13 @@ public class RopeTest {
         Rope shortRope = new Rope();
         shortRope.setLength(101);
 
+        int delta = rope.getLength() - shortRope.getLength();
+
         // Ensure that the long rope is bigger...
-        assertEquals(rope.compareTo(shortRope), 1);
+        assertEquals(rope.compareTo(shortRope), delta);
 
         // Ensure that the short rope is shorter
-        assertEquals(shortRope.compareTo(rope), -1);
+        assertEquals(shortRope.compareTo(rope), (-1 * delta));
 
         // Create a rope the same length as the short rope...
         Rope anotherShortRope = new Rope();

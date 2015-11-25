@@ -4,7 +4,6 @@ package uk.co.dylanmckee.RopeCuttingProblem;
  * Purpose: A simple data structure class to represent a length of rope that is comparable and therefore can be sorted.
  * Author: Dylan McKee
  * Date: 25/11/2015
- *
  */
 public class Rope implements Comparable<Rope> {
     // The length of the rope, in meters
@@ -12,6 +11,7 @@ public class Rope implements Comparable<Rope> {
 
     /**
      * A method to get the length of the rope, in meters.
+     *
      * @return the length of the rope, in meters
      */
     public int getLength() {
@@ -20,6 +20,7 @@ public class Rope implements Comparable<Rope> {
 
     /**
      * A method to set the new length of the rope - for example after cutting - in meters.
+     *
      * @param length the new length of the rope, in meters.
      */
     public void setLength(int length) {
@@ -32,21 +33,13 @@ public class Rope implements Comparable<Rope> {
      */
     @Override
     public int compareTo(Rope o) {
-        if (this.getLength() == o.getLength()) {
-            // They're equal
-            return 0;
-        } else if (this.getLength() > o.getLength()) {
-            // This rope is longer than the other
-            return 1;
-        } else {
-            // This rope must be shorter than the other one
-            return -1;
-        }
+        return (this.length - o.length);
 
     }
 
     /**
      * Return a string describing the current rope instance (including its length)
+     *
      * @return a human readable String object describing the current rope instance, including its length in meters.
      */
     @Override
