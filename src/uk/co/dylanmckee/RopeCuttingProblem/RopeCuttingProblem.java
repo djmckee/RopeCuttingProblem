@@ -2,6 +2,8 @@ package uk.co.dylanmckee.RopeCuttingProblem;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Purpose: A Java solution to the Rope Cutting Problem, for CSC2023 Algorithm Design Assignment 2.
@@ -25,8 +27,8 @@ public class RopeCuttingProblem {
     // If the length is below this threshold, it's removed from our stock.
     private static final int MIN_ROPE_STOCK_LENGTH = 5;
 
-    // An array of order lengths.
-    int[] arrayOfOrderLengths;
+    // An queue of orders.
+    private Queue<Order> orders = new LinkedList<Order>();
 
     // A list of ropes.
     private ArrayList<Rope> ropes = new ArrayList<Rope>();
@@ -69,10 +71,18 @@ public class RopeCuttingProblem {
      * A public method to expose the first fit rope cutting algorithm.
      */
     public void performFirstFitRopeCutting() {
-        // Iterate through the orders array, performing first fit rope cutting for each one...
-        for (int orderLength : arrayOfOrderLengths) {
-            // Perform first fit rope cutting algorithm for this order
-            firstFitRopeCutting(orderLength);
+        // Iterate through the orders queue, performing first fit rope cutting for each one...
+        while (!orders.isEmpty()) {
+            Order nextOrder = orders.poll();
+
+            // Double check...
+            if (nextOrder != null) {
+                // Get order length...
+                int orderLength = nextOrder.getLength();
+
+                // Perform first fit rope cutting algorithm for this order
+                firstFitRopeCutting(orderLength);
+            }
         }
 
     }
@@ -123,10 +133,18 @@ public class RopeCuttingProblem {
      * A public method to expose the best fit rope cutting algorithm.
      */
     public void performBestFitRopeCutting() {
-        // Iterate through the orders array, performing best fit rope cutting for each one...
-        for (int orderLength : arrayOfOrderLengths) {
-            // Perform best fit rope cutting algorithm for this order
-            bestFitRopeCutting(orderLength);
+        // Iterate through the orders queue, performing best fit rope cutting for each one...
+        while (!orders.isEmpty()) {
+            Order nextOrder = orders.poll();
+
+            // Double check...
+            if (nextOrder != null) {
+                // Get order length...
+                int orderLength = nextOrder.getLength();
+
+                // Perform first fit rope cutting algorithm for this order
+                bestFitRopeCutting(orderLength);
+            }
         }
 
     }
@@ -185,14 +203,17 @@ public class RopeCuttingProblem {
      */
     private void generateRopesAndOrders() {
         // Generate a random length for every order...
-        arrayOfOrderLengths = new int[numberOfOrders];
-
         for (int i = 0; i < numberOfOrders; i++) {
             // Randomly generate a new order length in the order bounds...
             int randomOrderLength = generateRandomInteger(MIN_ORDER_LENGTH, MAX_ORDER_LENGTH);
 
-            // Add to the array of order lengths
-            arrayOfOrderLengths[i] = randomOrderLength;
+            // Create a new order...
+            Order order = new Order();
+            order.setLength(randomOrderLength);
+
+            // Add to the order queue...
+            orders.add(order);
+
         }
 
         // Generate a rope for every order...
