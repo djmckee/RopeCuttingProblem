@@ -199,7 +199,7 @@ public class RopeCuttingProblem {
      * the time taken to perform the actual rope cutting algorithms, making the test fairer & reducing code duplication.
      * The length of the rope is always within the bounds of ropes supplied by the manufacturer.
      * <p>
-     * This method also pre-computes a random length for every order, and fills the orders array.
+     * This method also pre-computes a random length for every order, and fills the orders queue.
      */
     private void generateRopesAndOrders() {
         // Generate a random length for every order...
