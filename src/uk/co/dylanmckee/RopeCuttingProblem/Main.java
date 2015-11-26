@@ -7,12 +7,12 @@ package uk.co.dylanmckee.RopeCuttingProblem;
  */
 public class Main {
 
-    // A constant number of orders, to use within the test of the RopeCuttingProblem.
+    // A constant number of orders, to use within the test of the
     public static final int NUMBER_OF_ORDERS = 100000;
 
     public static void main(String[] args) {
         // Create Rope Cutting Problem test instance
-        RopeCuttingProblem ropeCuttingProblemTest = new RopeCuttingProblem(Main.NUMBER_OF_ORDERS);
+        RopeCuttingProblem ropeCuttingProblemTest = new RopeCuttingProblem(NUMBER_OF_ORDERS);
 
         ropeCuttingProblemTest.performBestFitRopeCutting();
 

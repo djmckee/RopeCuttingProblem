@@ -205,7 +205,7 @@ public class RopeCuttingProblem {
         // Generate a random length for every order...
         for (int i = 0; i < this.numberOfOrders; i++) {
             // Randomly generate a new order length in the order bounds...
-            int randomOrderLength = this.generateRandomInteger(RopeCuttingProblem.MIN_ORDER_LENGTH, RopeCuttingProblem.MAX_ORDER_LENGTH);
+            int randomOrderLength = this.generateRandomInteger(MIN_ORDER_LENGTH, MAX_ORDER_LENGTH);
 
             // Create a new order...
             Order order = new Order();
@@ -234,7 +234,7 @@ public class RopeCuttingProblem {
         Rope rope = new Rope();
 
         // Generate a random length for the rope, within the supplier's bounds
-        int length = this.generateRandomInteger(RopeCuttingProblem.MIN_SUPPLIER_LENGTH, RopeCuttingProblem.MAX_SUPPLIER_LENGTH);
+        int length = this.generateRandomInteger(MIN_SUPPLIER_LENGTH, MAX_SUPPLIER_LENGTH);
 
         // Set the new rope's length
         rope.setLength(length);
@@ -266,7 +266,7 @@ public class RopeCuttingProblem {
         rope.setLength(newLength);
 
         // If the new length of the rope is less than the threshold for keeping it in stock, remove it!
-        if (newLength < RopeCuttingProblem.MIN_ROPE_STOCK_LENGTH) {
+        if (newLength < MIN_ROPE_STOCK_LENGTH) {
             this.ropes.remove(rope);
 
         }
