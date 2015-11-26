@@ -16,10 +16,10 @@ public class RopeCuttingProblem {
     private static final int MAX_SUPPLIER_LENGTH = 200;
 
     // The minimum length a customer's rope order can be, in meters.
-    private static final int MIN_ORDER_LENGTH = 100;
+    private static final int MIN_ORDER_LENGTH = 1;
 
     // The maximum length a customer's rope order can be, in meters.
-    private static final int MAX_ORDER_LENGTH = 200;
+    private static final int MAX_ORDER_LENGTH = 100;
 
     // The minimum length, in meters, that a rope can be to be allowed in stock.
     // If the length is below this threshold, it's removed from our stock.
@@ -221,8 +221,8 @@ public class RopeCuttingProblem {
         // Add the rope to the ropes list...
         ropes.add(rope);
 
-        // Print to console
-        System.out.println("Generated " + rope.toString());
+        // Print to console (when debugging only! Uncomment this for time testing sake).
+        //System.out.println("Generated " + rope.toString());
 
     }
 
