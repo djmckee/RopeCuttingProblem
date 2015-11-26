@@ -11,45 +11,45 @@ import org.junit.Test;
  */
 public class RopeCuttingProblemTest {
 
-    private final static int TEST_NUMBER_OF_ORDERS = 100000;
+    private static final int TEST_NUMBER_OF_ORDERS = 100000;
 
     private RopeCuttingProblem ropeCuttingProblem;
 
     @Before
     public void setUp() throws Exception {
         // Initialise a test instance of the RopeCuttingProblem
-        ropeCuttingProblem = new RopeCuttingProblem(TEST_NUMBER_OF_ORDERS);
+        this.ropeCuttingProblem = new RopeCuttingProblem(RopeCuttingProblemTest.TEST_NUMBER_OF_ORDERS);
 
     }
 
     @After
     public void tearDown() throws Exception {
         // Log number of coils ordered in this test - I'm doing it here in the @After method so that time to run this is not included in the total test time.
-        System.out.println("Number of coils of extra rope ordered from manufacturer: " + ropeCuttingProblem.getNumberOfCoilsOfRopeOrderedAdditionally());
+        System.out.println("Number of coils of extra rope ordered from manufacturer: " + this.ropeCuttingProblem.getNumberOfCoilsOfRopeOrderedAdditionally());
 
 
         // Destroy test instance
-        ropeCuttingProblem = null;
+        this.ropeCuttingProblem = null;
 
     }
 
     @Test
     public void testPrintRopeStock() throws Exception {
         // Ensure it prints to console exception free...
-        ropeCuttingProblem.printRopeStock();
+        this.ropeCuttingProblem.printRopeStock();
     }
 
     @Test
     public void testPerformFirstFitRopeCutting() throws Exception {
         // Ensure test is performed exception free; also - note the time that the test takes.
-        ropeCuttingProblem.performFirstFitRopeCutting();
+        this.ropeCuttingProblem.performFirstFitRopeCutting();
 
     }
 
     @Test
     public void testPerformBestFitRopeCutting() throws Exception {
         // Ensure test is performed exception free; also - note the time that the test takes.
-        ropeCuttingProblem.performBestFitRopeCutting();
+        this.ropeCuttingProblem.performBestFitRopeCutting();
 
     }
 }

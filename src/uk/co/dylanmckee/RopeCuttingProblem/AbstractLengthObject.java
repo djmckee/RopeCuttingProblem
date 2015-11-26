@@ -21,7 +21,7 @@ public abstract class AbstractLengthObject implements Comparable<AbstractLengthO
      * @return the length of the object, in meters
      */
     public int getLength() {
-        return this.length;
+        return length;
     }
 
     /**
@@ -39,7 +39,7 @@ public abstract class AbstractLengthObject implements Comparable<AbstractLengthO
      */
     @Override
     public int compareTo(AbstractLengthObject o) {
-        return (this.length - o.length);
+        return length - o.length;
 
     }
 

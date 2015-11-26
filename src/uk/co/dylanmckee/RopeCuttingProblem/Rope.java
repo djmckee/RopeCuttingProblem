@@ -14,7 +14,7 @@ public class Rope extends AbstractLengthObject{
      */
     @Override
     public String toString() {
-        return "Rope - length: " + getLength() + "m";
+        return "Rope - length: " + this.getLength() + "m";
     }
 
 }

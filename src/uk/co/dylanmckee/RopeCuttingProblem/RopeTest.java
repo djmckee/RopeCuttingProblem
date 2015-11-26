@@ -19,13 +19,13 @@ public class RopeTest {
     @Before
     public void setUp() throws Exception {
         // Create test Rope instance
-        rope = new Rope();
+        this.rope = new Rope();
     }
 
     @After
     public void tearDown() throws Exception {
         // Destroy test rope.
-        rope = null;
+        this.rope = null;
     }
 
     @Test
@@ -33,9 +33,9 @@ public class RopeTest {
         // Set the length, then get the length, and check they're equal
         int testLength = 105;
 
-        rope.setLength(testLength);
+        this.rope.setLength(testLength);
 
-        int reportedLength = rope.getLength();
+        int reportedLength = this.rope.getLength();
 
         // Check they're equal...
         assertEquals(testLength, reportedLength);
@@ -46,19 +46,19 @@ public class RopeTest {
     @Test
     public void testCompareTo() throws Exception {
         // Make our test rope a long rope...
-        rope.setLength(199);
+        this.rope.setLength(199);
 
         // Create a shorter test rope to compare to...
         Rope shortRope = new Rope();
         shortRope.setLength(101);
 
-        int delta = rope.getLength() - shortRope.getLength();
+        int delta = this.rope.getLength() - shortRope.getLength();
 
         // Ensure that the long rope is bigger...
-        assertEquals(rope.compareTo(shortRope), delta);
+        assertEquals(this.rope.compareTo(shortRope), delta);
 
         // Ensure that the short rope is shorter
-        assertEquals(shortRope.compareTo(rope), (-1 * delta));
+        assertEquals(shortRope.compareTo(this.rope), -1 * delta);
 
         // Create a rope the same length as the short rope...
         Rope anotherShortRope = new Rope();
@@ -72,7 +72,7 @@ public class RopeTest {
     @Test
     public void testToString() throws Exception {
         // Ensure that the toString method doesn't return null, and doesn't throw any exceptions.
-        assertNotNull(rope.toString());
+        assertNotNull(this.rope.toString());
 
     }
 }

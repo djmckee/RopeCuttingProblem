@@ -13,7 +13,7 @@ public class Order extends AbstractLengthObject {
      * @return a human readable String object describing the current order instance, including its length in meters.
      */
     public String toString() {
-        return "Order - length: " + getLength() + "m";
+        return "Order - length: " + this.getLength() + "m";
     }
 
 }
