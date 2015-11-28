@@ -11,6 +11,10 @@ import java.util.Queue;
  * Date: 25/11/2015
  */
 public class RopeCuttingProblem {
+    // A boolean to enable logging for debug purposes (to be switched off in production and in time based tests!)
+    // (defaults to false for safety)
+    private boolean DEBUG = false;
+
     // The minimum length of the rope from suppliers, in meters
     private static final int MIN_SUPPLIER_LENGTH = 100;
 
@@ -27,10 +31,10 @@ public class RopeCuttingProblem {
     // If the length is below this threshold, it's removed from our stock.
     private static final int MIN_ROPE_STOCK_LENGTH = 5;
 
-    // An queue of orders.
+    // A queue of orders, using the LinkedList queue implementation.
     private final Queue<Order> orders = new LinkedList<Order>();
 
-    // A list of ropes.
+    // A list of ropes, stored in an ArrayList.
     private final ArrayList<Rope> ropes = new ArrayList<Rope>();
 
     // The number of orders, as passed to the constructor
@@ -242,8 +246,10 @@ public class RopeCuttingProblem {
         // Add the rope to the ropes list...
         this.ropes.add(rope);
 
-        // Print to console (when debugging only! Uncomment this for time testing sake).
-        //System.out.println("Generated " + rope.toString());
+        // Print status to console (when debugging only!).
+        if (DEBUG) {
+            System.out.println("Generated " + rope.toString());
+        }
 
     }
 
@@ -265,9 +271,19 @@ public class RopeCuttingProblem {
         int newLength = initialLength - lengthToCut;
         rope.setLength(newLength);
 
+
+        // Print status to console (when debugging only!).
+        if (DEBUG) {
+            System.out.printf("Cutting %dm from a rope: initial length: %dm, new length: %dm\n", lengthToCut, initialLength, newLength);
+        }
+
         // If the new length of the rope is less than the threshold for keeping it in stock, remove it!
         if (newLength < MIN_ROPE_STOCK_LENGTH) {
             this.ropes.remove(rope);
+
+            if (DEBUG) {
+                System.out.println("Removed (under length threshold): " + rope.toString());
+            }
 
         }
 
@@ -304,5 +320,11 @@ public class RopeCuttingProblem {
         return this.numberOfCoilsOfRopeOrderedAdditionally;
     }
 
+    /**
+     * Toggles debug logging to whatever the 'debug' parameter boolean is set to.
+     */
+    public void setDebug(boolean debug) {
+        DEBUG = debug;
+    }
 
 }

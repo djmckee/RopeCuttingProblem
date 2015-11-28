@@ -18,7 +18,10 @@ public class RopeCuttingProblemTest {
     @Before
     public void setUp() throws Exception {
         // Initialise a test instance of the RopeCuttingProblem
-        this.ropeCuttingProblem = new RopeCuttingProblem(RopeCuttingProblemTest.TEST_NUMBER_OF_ORDERS);
+        ropeCuttingProblem = new RopeCuttingProblem(RopeCuttingProblemTest.TEST_NUMBER_OF_ORDERS);
+
+        // Ensure DEBUG is OFF for these unit tests - we're using them to measure time taken and printf() is a very slow function.
+        ropeCuttingProblem.setDebug(false);
 
     }
 
@@ -29,27 +32,27 @@ public class RopeCuttingProblemTest {
 
 
         // Destroy test instance
-        this.ropeCuttingProblem = null;
+        ropeCuttingProblem = null;
 
     }
 
     @Test
     public void testPrintRopeStock() throws Exception {
         // Ensure it prints to console exception free...
-        this.ropeCuttingProblem.printRopeStock();
+        ropeCuttingProblem.printRopeStock();
     }
 
     @Test
     public void testPerformFirstFitRopeCutting() throws Exception {
         // Ensure test is performed exception free; also - note the time that the test takes.
-        this.ropeCuttingProblem.performFirstFitRopeCutting();
+        ropeCuttingProblem.performFirstFitRopeCutting();
 
     }
 
     @Test
     public void testPerformBestFitRopeCutting() throws Exception {
         // Ensure test is performed exception free; also - note the time that the test takes.
-        this.ropeCuttingProblem.performBestFitRopeCutting();
+        ropeCuttingProblem.performBestFitRopeCutting();
 
     }
 }

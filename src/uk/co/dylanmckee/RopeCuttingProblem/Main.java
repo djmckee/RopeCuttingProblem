@@ -8,11 +8,14 @@ package uk.co.dylanmckee.RopeCuttingProblem;
 public class Main {
 
     // A constant number of orders, to use within the test of the
-    public static final int NUMBER_OF_ORDERS = 100000;
+    public static final int NUMBER_OF_ORDERS = 1000;
 
     public static void main(String[] args) {
         // Create Rope Cutting Problem test instance
         RopeCuttingProblem ropeCuttingProblemTest = new RopeCuttingProblem(NUMBER_OF_ORDERS);
+
+        // This is just a debug test, not a unit test that we're measuring runtime for; so enable debug logging...
+        ropeCuttingProblemTest.setDebug(true);
 
         ropeCuttingProblemTest.performBestFitRopeCutting();
 
