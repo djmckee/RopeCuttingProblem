@@ -13,7 +13,7 @@ import java.util.Queue;
 public class RopeCuttingProblem {
     // A boolean to enable logging for debug purposes (to be switched off in production and in time based tests!)
     // (defaults to false for safety)
-    private boolean DEBUG = false;
+    private boolean DEBUG;
 
     // The minimum length of the rope from suppliers, in meters
     private static final int MIN_SUPPLIER_LENGTH = 100;
@@ -54,7 +54,7 @@ public class RopeCuttingProblem {
         this.numberOfOrders = numberOfOrders;
 
         // Generate ropes
-        this.generateRopesAndOrders();
+        generateRopesAndOrders();
 
     }
 
@@ -64,7 +64,7 @@ public class RopeCuttingProblem {
     public void printRopeStock() {
         System.out.println("Current rope stock:");
 
-        for (Rope rope : this.ropes) {
+        for (Rope rope : ropes) {
             System.out.println(rope);
 
         }
@@ -76,8 +76,8 @@ public class RopeCuttingProblem {
      */
     public void performFirstFitRopeCutting() {
         // Iterate through the orders queue, performing first fit rope cutting for each one...
-        while (!this.orders.isEmpty()) {
-            Order nextOrder = this.orders.poll();
+        while (!orders.isEmpty()) {
+            Order nextOrder = orders.poll();
 
             // Double check...
             if (nextOrder != null) {
@@ -85,7 +85,7 @@ public class RopeCuttingProblem {
                 int orderLength = nextOrder.getLength();
 
                 // Perform first fit rope cutting algorithm for this order
-                this.firstFitRopeCutting(orderLength);
+                firstFitRopeCutting(orderLength);
             }
         }
 
@@ -99,14 +99,14 @@ public class RopeCuttingProblem {
         boolean orderComplete = false;
 
         // Iterate through the array, from first rope...
-        for (int i = 0; i < this.ropes.size(); i++) {
+        for (int i = 0; i < ropes.size(); i++) {
             // Get the rope being iterated...
-            Rope rope = this.ropes.get(i);
+            Rope rope = ropes.get(i);
 
             // Is it long enough?
             if (rope.getLength() >= orderLength) {
                 // Yes! Cut the order from this rope...
-                this.cutLengthFromRope(rope, orderLength);
+                cutLengthFromRope(rope, orderLength);
 
                 // Order complete!
                 orderComplete = true;
@@ -122,12 +122,12 @@ public class RopeCuttingProblem {
         // Is the order complete?
         if (!orderComplete) {
             // Order not completed because we have no suitable ropes, order a new rope, then try again.
-            this.orderNewRope();
+            orderNewRope();
 
-            this.numberOfCoilsOfRopeOrderedAdditionally++;
+            numberOfCoilsOfRopeOrderedAdditionally++;
 
             // Recursively call the rope cutting again, hoping the new rope is long enough to cut from it...
-            this.firstFitRopeCutting(orderLength);
+            firstFitRopeCutting(orderLength);
         }
 
     }
@@ -138,8 +138,8 @@ public class RopeCuttingProblem {
      */
     public void performBestFitRopeCutting() {
         // Iterate through the orders queue, performing best fit rope cutting for each one...
-        while (!this.orders.isEmpty()) {
-            Order nextOrder = this.orders.poll();
+        while (!orders.isEmpty()) {
+            Order nextOrder = orders.poll();
 
             // Double check...
             if (nextOrder != null) {
@@ -147,7 +147,7 @@ public class RopeCuttingProblem {
                 int orderLength = nextOrder.getLength();
 
                 // Perform first fit rope cutting algorithm for this order
-                this.bestFitRopeCutting(orderLength);
+                bestFitRopeCutting(orderLength);
             }
         }
 
@@ -159,20 +159,20 @@ public class RopeCuttingProblem {
     private void bestFitRopeCutting(int orderLength) {
         // Sort the ropes array in ascending order, so that the rope with the least amount left on it comes first,
         // therefore we start at the rope most likely has the least sufficient free length left on it...
-        Collections.sort(this.ropes);
+        Collections.sort(ropes);
 
         // A flag to mark if the order's complete...
         boolean orderComplete = false;
 
         // Iterate through the array, from shortest rope...
-        for (int i = 0; i < this.ropes.size(); i++) {
+        for (int i = 0; i < ropes.size(); i++) {
             // Get the rope being iterated...
-            Rope rope = this.ropes.get(i);
+            Rope rope = ropes.get(i);
 
             // Is it long enough?
             if (rope.getLength() >= orderLength) {
                 // Yes! Cut the order from this rope...
-                this.cutLengthFromRope(rope, orderLength);
+                cutLengthFromRope(rope, orderLength);
 
                 // Order complete!
                 orderComplete = true;
@@ -188,12 +188,12 @@ public class RopeCuttingProblem {
         // Is the order complete?
         if (!orderComplete) {
             // Order not completed because we have no suitable ropes, order a new rope, then try again.
-            this.orderNewRope();
+            orderNewRope();
 
-            this.numberOfCoilsOfRopeOrderedAdditionally++;
+            numberOfCoilsOfRopeOrderedAdditionally++;
 
             // Recursively call the rope cutting again, hoping the new rope is long enough to cut from it...
-            this.bestFitRopeCutting(orderLength);
+            bestFitRopeCutting(orderLength);
         }
 
     }
@@ -207,22 +207,22 @@ public class RopeCuttingProblem {
      */
     private void generateRopesAndOrders() {
         // Generate a random length for every order...
-        for (int i = 0; i < this.numberOfOrders; i++) {
+        for (int i = 0; i < numberOfOrders; i++) {
             // Randomly generate a new order length in the order bounds...
-            int randomOrderLength = this.generateRandomInteger(MIN_ORDER_LENGTH, MAX_ORDER_LENGTH);
+            int randomOrderLength = generateRandomInteger(RopeCuttingProblem.MIN_ORDER_LENGTH, RopeCuttingProblem.MAX_ORDER_LENGTH);
 
             // Create a new order...
             Order order = new Order();
             order.setLength(randomOrderLength);
 
             // Add to the order queue...
-            this.orders.add(order);
+            orders.add(order);
 
         }
 
         // Generate a rope for every order...
-        for (int i = 0; i < this.numberOfOrders; i++) {
-            this.orderNewRope();
+        for (int i = 0; i < numberOfOrders; i++) {
+            orderNewRope();
 
         }
 
@@ -238,17 +238,17 @@ public class RopeCuttingProblem {
         Rope rope = new Rope();
 
         // Generate a random length for the rope, within the supplier's bounds
-        int length = this.generateRandomInteger(MIN_SUPPLIER_LENGTH, MAX_SUPPLIER_LENGTH);
+        int length = generateRandomInteger(RopeCuttingProblem.MIN_SUPPLIER_LENGTH, RopeCuttingProblem.MAX_SUPPLIER_LENGTH);
 
         // Set the new rope's length
         rope.setLength(length);
 
         // Add the rope to the ropes list...
-        this.ropes.add(rope);
+        ropes.add(rope);
 
         // Print status to console (when debugging only!).
         if (DEBUG) {
-            System.out.println("Generated " + rope.toString());
+            System.out.println("Generated " + rope);
         }
 
     }
@@ -278,11 +278,11 @@ public class RopeCuttingProblem {
         }
 
         // If the new length of the rope is less than the threshold for keeping it in stock, remove it!
-        if (newLength < MIN_ROPE_STOCK_LENGTH) {
-            this.ropes.remove(rope);
+        if (newLength < RopeCuttingProblem.MIN_ROPE_STOCK_LENGTH) {
+            ropes.remove(rope);
 
             if (DEBUG) {
-                System.out.println("Removed (under length threshold): " + rope.toString());
+                System.out.println("Removed (under length threshold): " + rope);
             }
 
         }
@@ -317,11 +317,13 @@ public class RopeCuttingProblem {
      * @return an integer containing the number of coils of rope supplied by the manufacturer
      */
     public int getNumberOfCoilsOfRopeOrderedAdditionally() {
-        return this.numberOfCoilsOfRopeOrderedAdditionally;
+        return numberOfCoilsOfRopeOrderedAdditionally;
     }
 
     /**
      * Toggles debug logging to whatever the 'debug' parameter boolean is set to.
+     *
+     * @param debug a boolean to say whether this class should debug log to the console or not.
      */
     public void setDebug(boolean debug) {
         DEBUG = debug;

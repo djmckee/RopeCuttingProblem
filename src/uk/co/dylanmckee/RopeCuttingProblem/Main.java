@@ -11,13 +11,27 @@ public class Main {
     public static final int NUMBER_OF_ORDERS = 1000;
 
     public static void main(String[] args) {
+        System.out.println("Performing first fit rope cutting:");
+
         // Create Rope Cutting Problem test instance
-        RopeCuttingProblem ropeCuttingProblemTest = new RopeCuttingProblem(NUMBER_OF_ORDERS);
+        RopeCuttingProblem firstFitCuttingTest = new RopeCuttingProblem(NUMBER_OF_ORDERS);
 
         // This is just a debug test, not a unit test that we're measuring runtime for; so enable debug logging...
-        ropeCuttingProblemTest.setDebug(true);
+        firstFitCuttingTest.setDebug(true);
 
-        ropeCuttingProblemTest.performBestFitRopeCutting();
+        // Perform first fit rope cutting
+        firstFitCuttingTest.performBestFitRopeCutting();
+
+        System.out.println("Performing best fit rope cutting:");
+
+        // Create Rope Cutting Problem test instance
+        RopeCuttingProblem bestFitCuttingTest = new RopeCuttingProblem(NUMBER_OF_ORDERS);
+
+        // This is just a debug test, not a unit test that we're measuring runtime for; so enable debug logging...
+        bestFitCuttingTest.setDebug(true);
+
+        // Perform best fit rope cutting
+        bestFitCuttingTest.performBestFitRopeCutting();
 
     }
 }
