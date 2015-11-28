@@ -4,7 +4,7 @@ package uk.co.dylanmckee.RopeCuttingProblem;
  * Purpose: An abstract data structure to represent a type of object that has a length associated with it, e.g. a rope.
  *          Length getter and setter methods are implemented in this abstract class to reduce code duplication.
  *          Comparable is also implemented, so that AbstractLengthObject derivatives can be sorted in ascending order easily.
- *          toString is marked as abstract, to ensure the classes that inherit this implement
+ *          toString is marked as abstract, to ensure the classes that inherit this implement it.
  * Author: Dylan McKee
  * Date: 26/11/2015
  */
