@@ -31,13 +31,13 @@ public class RopeCuttingProblem {
     // If the length is below this threshold, it's removed from our stock.
     private static final int MIN_ROPE_STOCK_LENGTH = 5;
 
-    // A queue of orders, using the LinkedList queue implementation.
+    // A queue of rope orders to be cut, using the LinkedList queue implementation.
     private final Queue<Order> orders = new LinkedList<Order>();
 
-    // A list of ropes, stored in an ArrayList.
+    // A list of ropes in-stock to cut the orders from, stored in an ArrayList.
     private final ArrayList<Rope> ropes = new ArrayList<Rope>();
 
-    // The number of orders, as passed to the constructor
+    // The number of orders to generate and process, as passed to the constructor
     private final int numberOfOrders;
 
     // The number of coils of rope supplied from the manufacturer in addition to those pre-computed.
@@ -57,6 +57,63 @@ public class RopeCuttingProblem {
         generateRopesAndOrders();
 
     }
+
+
+    /**
+     * An internal method to pre-compute random length ropes into the ropes array, so as not to count this operation in
+     * the time taken to perform the actual rope cutting algorithms, making the test fairer & reducing code duplication.
+     * The length of the rope is always within the bounds of ropes supplied by the manufacturer.
+     * <p>
+     * This method also pre-computes a random length for every order, and fills the orders queue.
+     */
+    private void generateRopesAndOrders() {
+        // Generate a random length for every order...
+        for (int i = 0; i < numberOfOrders; i++) {
+            // Randomly generate a new order length in the order bounds...
+            int randomOrderLength = generateRandomInteger(MIN_ORDER_LENGTH, MAX_ORDER_LENGTH);
+
+            // Create a new order...
+            Order order = new Order();
+            order.setLength(randomOrderLength);
+
+            // Add to the order queue...
+            orders.add(order);
+
+        }
+
+        // Generate a rope for every order...
+        for (int i = 0; i < numberOfOrders; i++) {
+            orderNewRope();
+
+        }
+
+    }
+
+    /**
+     * An internal method to order new ropes. This can be called when precomputing the ropes for some orders, or, if
+     * there's no suitable ropes in stock, this method can be called to have a new rope instantly delivered from the
+     * manufacturer and added to the ropes array.
+     */
+    private void orderNewRope() {
+        // Instantiate the new rope object
+        Rope rope = new Rope();
+
+        // Generate a random length for the rope, within the supplier's bounds
+        int length = generateRandomInteger(MIN_SUPPLIER_LENGTH, MAX_SUPPLIER_LENGTH);
+
+        // Set the new rope's length
+        rope.setLength(length);
+
+        // Add the rope to the ropes list...
+        ropes.add(rope);
+
+        // Print status to console (when debugging only!).
+        if (DEBUG) {
+            System.out.println("Generated " + rope);
+        }
+
+    }
+
 
     /**
      * A public method to print the current rope that's in stock to the console...
@@ -126,7 +183,7 @@ public class RopeCuttingProblem {
 
             numberOfCoilsOfRopeOrderedAdditionally++;
 
-            // Recursively call the rope cutting again, hoping the new rope is long enough to cut from it...
+            // Recursively call the rope cutting again, this time the length will get cut from the new rope...
             firstFitRopeCutting(orderLength);
         }
 
@@ -199,61 +256,6 @@ public class RopeCuttingProblem {
     }
 
     /**
-     * An internal method to pre-compute random length ropes into the ropes array, so as not to count this operation in
-     * the time taken to perform the actual rope cutting algorithms, making the test fairer & reducing code duplication.
-     * The length of the rope is always within the bounds of ropes supplied by the manufacturer.
-     * <p>
-     * This method also pre-computes a random length for every order, and fills the orders queue.
-     */
-    private void generateRopesAndOrders() {
-        // Generate a random length for every order...
-        for (int i = 0; i < numberOfOrders; i++) {
-            // Randomly generate a new order length in the order bounds...
-            int randomOrderLength = generateRandomInteger(RopeCuttingProblem.MIN_ORDER_LENGTH, RopeCuttingProblem.MAX_ORDER_LENGTH);
-
-            // Create a new order...
-            Order order = new Order();
-            order.setLength(randomOrderLength);
-
-            // Add to the order queue...
-            orders.add(order);
-
-        }
-
-        // Generate a rope for every order...
-        for (int i = 0; i < numberOfOrders; i++) {
-            orderNewRope();
-
-        }
-
-    }
-
-    /**
-     * An internal method to order new ropes. This can be called when precomputing the ropes for some orders, or, if
-     * there's no suitable ropes in stock, this method can be called to have a new rope instantly delivered from the
-     * manufacturer and added to the ropes array.
-     */
-    private void orderNewRope() {
-        // Instantiate the new rope object
-        Rope rope = new Rope();
-
-        // Generate a random length for the rope, within the supplier's bounds
-        int length = generateRandomInteger(RopeCuttingProblem.MIN_SUPPLIER_LENGTH, RopeCuttingProblem.MAX_SUPPLIER_LENGTH);
-
-        // Set the new rope's length
-        rope.setLength(length);
-
-        // Add the rope to the ropes list...
-        ropes.add(rope);
-
-        // Print status to console (when debugging only!).
-        if (DEBUG) {
-            System.out.println("Generated " + rope);
-        }
-
-    }
-
-    /**
      * An internal method to remove the specified length from the specified rope. If the rope falls under the threshold
      * to be kept in stock, then this method also removes it from stock after deducting the length.
      * This method helps to reduce code duplication between the two different algorithm implementations.
@@ -278,7 +280,7 @@ public class RopeCuttingProblem {
         }
 
         // If the new length of the rope is less than the threshold for keeping it in stock, remove it!
-        if (newLength < RopeCuttingProblem.MIN_ROPE_STOCK_LENGTH) {
+        if (newLength < MIN_ROPE_STOCK_LENGTH) {
             ropes.remove(rope);
 
             if (DEBUG) {
