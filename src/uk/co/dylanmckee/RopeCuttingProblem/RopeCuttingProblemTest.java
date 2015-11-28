@@ -28,7 +28,7 @@ public class RopeCuttingProblemTest {
     @After
     public void tearDown() throws Exception {
         // Log number of coils ordered in this test - I'm doing it here in the @After method so that time to run this is not included in the total test time.
-        System.out.println("Number of coils of extra rope ordered from manufacturer: " + ropeCuttingProblem.getNumberOfCoilsOfRopeOrderedAdditionally());
+        System.out.println("Number of coils of extra rope ordered from manufacturer: " + ropeCuttingProblem.getNumberOfCoilsOfRopeOrdered());
 
 
         // Destroy test instance

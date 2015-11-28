@@ -1,9 +1,6 @@
 package uk.co.dylanmckee.RopeCuttingProblem;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * Purpose: A Java solution to the Rope Cutting Problem, for CSC2023 Algorithm Design Assignment 2.
@@ -34,14 +31,17 @@ public class RopeCuttingProblem {
     // A queue of rope orders to be cut, using the LinkedList queue implementation.
     private final Queue<Order> orders = new LinkedList<Order>();
 
+    // A stack of pre-computed ropes from the manufacturer, so ordering time doesn't affect runtime analysis
+    private final Stack<Rope> ropeSupply = new Stack<Rope>();
+
     // A list of ropes in-stock to cut the orders from, stored in an ArrayList.
     private final ArrayList<Rope> ropes = new ArrayList<Rope>();
 
     // The number of orders to generate and process, as passed to the constructor
     private final int numberOfOrders;
 
-    // The number of coils of rope supplied from the manufacturer in addition to those pre-computed.
-    private int numberOfCoilsOfRopeOrderedAdditionally;
+    // The number of coils of rope supplied from the manufacturer (i.e. transferred from the ropeSupply stack to the ropes array).
+    private int numberOfCoilsOfRopeOrdered;
 
 
     /**
@@ -64,6 +64,8 @@ public class RopeCuttingProblem {
      * the time taken to perform the actual rope cutting algorithms, making the test fairer & reducing code duplication.
      * The length of the rope is always within the bounds of ropes supplied by the manufacturer.
      *
+     * This method also pre-computes some rope from the manufacturer; adding it to the ropeSupply stack.
+     *
      */
     private void generateRopesAndOrders() {
         // Generate a random length for every order...
@@ -78,16 +80,16 @@ public class RopeCuttingProblem {
             // Add to the order queue...
             orders.add(order);
 
+            // For every order, pre-compute rope generation from the manufacturer and add it to the ropeSupply Stack.
+
         }
 
     }
 
     /**
-     * An internal method to order new ropes. This can be called when precomputing the ropes for some orders, or, if
-     * there's no suitable ropes in stock, this method can be called to have a new rope instantly delivered from the
-     * manufacturer and added to the ropes array.
+     * An internal method to generate a new rope of random length, and add it to the rope supply stack.
      */
-    private void orderNewRope() {
+    private void generateRope() {
         // Instantiate the new rope object
         Rope rope = new Rope();
 
@@ -97,12 +99,35 @@ public class RopeCuttingProblem {
         // Set the new rope's length
         rope.setLength(length);
 
-        // Add the rope to the ropes list...
-        ropes.add(rope);
+        // Add the rope to the ropeSupply stack...
+        ropeSupply.push(rope);
 
         // Print status to console (when debugging only!).
         if (DEBUG) {
             System.out.println("Generated " + rope);
+        }
+    }
+
+    /**
+     * An internal method to order new ropes. This method moves rope from the ropeSupply stack (i.e. from the manufacturer)
+     * into the shop's rope supply (the ropes array), for cutting.
+     */
+    private void orderNewRope() {
+        // Increment rope order counter...
+        numberOfCoilsOfRopeOrdered++;
+
+        // If there's rope in the rope supply, use that...
+        if (!ropeSupply.isEmpty()) {
+            Rope ropeFromStack = ropeSupply.pop();
+
+            // Move it into stock
+            ropes.add(ropeFromStack);
+        } else {
+            // Generate a new rope in the ropeSupply
+            generateRope();
+
+            // And call the order method recursively to get it added to the in store rope selection without code duplication
+            orderNewRope();
         }
 
     }
@@ -135,8 +160,8 @@ public class RopeCuttingProblem {
      *
      * @return an integer containing the number of coils of rope supplied by the manufacturer
      */
-    public int getNumberOfCoilsOfRopeOrderedAdditionally() {
-        return numberOfCoilsOfRopeOrderedAdditionally;
+    public int getNumberOfCoilsOfRopeOrdered() {
+        return numberOfCoilsOfRopeOrdered;
     }
 
     /**
@@ -211,8 +236,6 @@ public class RopeCuttingProblem {
             // Order not completed because we have no suitable ropes, order a new rope, then try again.
             orderNewRope();
 
-            numberOfCoilsOfRopeOrderedAdditionally++;
-
             // Recursively call the rope cutting again, this time the length will get cut from the new rope...
             firstFitRopeCutting(orderLength);
         }
@@ -273,8 +296,6 @@ public class RopeCuttingProblem {
         if (!orderComplete) {
             // Order not completed because we have no suitable ropes, order a new rope, then try again.
             orderNewRope();
-
-            numberOfCoilsOfRopeOrderedAdditionally++;
 
             // Recursively call the rope cutting again, hoping the new rope is long enough to cut from it...
             bestFitRopeCutting(orderLength);
