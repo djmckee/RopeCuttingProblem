@@ -63,8 +63,7 @@ public class RopeCuttingProblem {
      * An internal method to pre-compute random length ropes into the ropes array, so as not to count this operation in
      * the time taken to perform the actual rope cutting algorithms, making the test fairer & reducing code duplication.
      * The length of the rope is always within the bounds of ropes supplied by the manufacturer.
-     * <p>
-     * This method also pre-computes a random length for every order, and fills the orders queue.
+     *
      */
     private void generateRopesAndOrders() {
         // Generate a random length for every order...
@@ -78,12 +77,6 @@ public class RopeCuttingProblem {
 
             // Add to the order queue...
             orders.add(order);
-
-        }
-
-        // Generate a rope for every order...
-        for (int i = 0; i < numberOfOrders; i++) {
-            orderNewRope();
 
         }
 
@@ -156,10 +149,7 @@ public class RopeCuttingProblem {
         boolean orderComplete = false;
 
         // Iterate through the array, from first rope...
-        for (int i = 0; i < ropes.size(); i++) {
-            // Get the rope being iterated...
-            Rope rope = ropes.get(i);
-
+        for (Rope rope : ropes) {
             // Is it long enough?
             if (rope.getLength() >= orderLength) {
                 // Yes! Cut the order from this rope...
@@ -222,10 +212,7 @@ public class RopeCuttingProblem {
         boolean orderComplete = false;
 
         // Iterate through the array, from shortest rope...
-        for (int i = 0; i < ropes.size(); i++) {
-            // Get the rope being iterated...
-            Rope rope = ropes.get(i);
-
+        for (Rope rope : ropes) {
             // Is it long enough?
             if (rope.getLength() >= orderLength) {
                 // Yes! Cut the order from this rope...
