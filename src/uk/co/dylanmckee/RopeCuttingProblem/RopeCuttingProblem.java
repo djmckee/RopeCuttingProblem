@@ -109,6 +109,46 @@ public class RopeCuttingProblem {
 
 
     /**
+     * An internal method to generate a random integer between the specified range (using the Math.random psuedorandom
+     * generation method), and return the generated integer.
+     */
+    private int generateRandomInteger(int min, int max) {
+        // Get a random double between 0.0 and 1.0...
+        double randomMultiplier = Math.random();
+
+        // Multiply the multiplier by the max minus the minimum...
+        double result = randomMultiplier * (max - min);
+
+        // Cast to an integer (adding 0.5 first to ensure it rounds up)
+        int wholeResult = (int) (result + 0.5);
+
+        // And add on the minimum to make sure it's in bounds
+        wholeResult = wholeResult + min;
+
+        // Return integer result
+        return wholeResult;
+
+    }
+
+    /**
+     * Returns the number of coils of rope supplied by the manufacturer.
+     *
+     * @return an integer containing the number of coils of rope supplied by the manufacturer
+     */
+    public int getNumberOfCoilsOfRopeOrderedAdditionally() {
+        return numberOfCoilsOfRopeOrderedAdditionally;
+    }
+
+    /**
+     * Toggles debug logging to whatever the 'debug' parameter boolean is set to.
+     *
+     * @param debug a boolean to say whether this class should debug log to the console or not.
+     */
+    public void setDebug(boolean debug) {
+        DEBUG = debug;
+    }
+
+    /**
      * A public method to print the current rope that's in stock to the console...
      */
     public void printRopeStock() {
@@ -278,44 +318,5 @@ public class RopeCuttingProblem {
 
     }
 
-    /**
-     * An internal method to generate a random integer between the specified range (using the Math.random psuedorandom
-     * generation method), and return the generated integer.
-     */
-    private int generateRandomInteger(int min, int max) {
-        // Get a random double between 0.0 and 1.0...
-        double randomMultiplier = Math.random();
-
-        // Multiply the multiplier by the max minus the minimum...
-        double result = randomMultiplier * (max - min);
-
-        // Cast to an integer (adding 0.5 first to ensure it rounds up)
-        int wholeResult = (int) (result + 0.5);
-
-        // And add on the minimum to make sure it's in bounds
-        wholeResult = wholeResult + min;
-
-        // Return integer result
-        return wholeResult;
-
-    }
-
-    /**
-     * Returns the number of coils of rope supplied by the manufacturer.
-     *
-     * @return an integer containing the number of coils of rope supplied by the manufacturer
-     */
-    public int getNumberOfCoilsOfRopeOrderedAdditionally() {
-        return numberOfCoilsOfRopeOrderedAdditionally;
-    }
-
-    /**
-     * Toggles debug logging to whatever the 'debug' parameter boolean is set to.
-     *
-     * @param debug a boolean to say whether this class should debug log to the console or not.
-     */
-    public void setDebug(boolean debug) {
-        DEBUG = debug;
-    }
 
 }
