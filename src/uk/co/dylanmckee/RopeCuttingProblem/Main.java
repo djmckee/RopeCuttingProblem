@@ -17,7 +17,7 @@ public class Main {
         RopeCuttingProblem firstFitCuttingTest = new RopeCuttingProblem(NUMBER_OF_ORDERS);
 
         // This is just a debug test, not a unit test that we're measuring runtime for; so enable debug logging...
-        firstFitCuttingTest.setDebug(true);
+        firstFitCuttingTest.setDebugMode(true);
 
         // Perform first fit rope cutting
         firstFitCuttingTest.performBestFitRopeCutting();
@@ -28,7 +28,7 @@ public class Main {
         RopeCuttingProblem bestFitCuttingTest = new RopeCuttingProblem(NUMBER_OF_ORDERS);
 
         // This is just a debug test, not a unit test that we're measuring runtime for; so enable debug logging...
-        bestFitCuttingTest.setDebug(true);
+        bestFitCuttingTest.setDebugMode(true);
 
         // Perform best fit rope cutting
         bestFitCuttingTest.performBestFitRopeCutting();

@@ -10,7 +10,7 @@ import java.util.*;
 public class RopeCuttingProblem {
     // A boolean to enable logging for debug purposes (to be switched off in production and in time based tests!)
     // (defaults to false for safety)
-    private boolean DEBUG;
+    private boolean debugMode;
 
     // The minimum length of the rope from suppliers, in meters
     private static final int MIN_SUPPLIER_LENGTH = 100;
@@ -35,7 +35,7 @@ public class RopeCuttingProblem {
     private final Stack<Rope> ropeSupply = new Stack<Rope>();
 
     // A list of ropes in-stock to cut the orders from, stored in an ArrayList.
-    private final ArrayList<Rope> ropes = new ArrayList<Rope>();
+    private final List<Rope> ropes = new ArrayList<Rope>();
 
     // The number of orders to generate and process, as passed to the constructor
     private final int numberOfOrders;
@@ -81,6 +81,8 @@ public class RopeCuttingProblem {
             orders.add(order);
 
             // For every order, pre-compute rope generation from the manufacturer and add it to the ropeSupply Stack.
+            // This ensures that rope generation time does not affect the timing.
+            generateRope();
 
         }
 
@@ -103,7 +105,7 @@ public class RopeCuttingProblem {
         ropeSupply.push(rope);
 
         // Print status to console (when debugging only!).
-        if (DEBUG) {
+        if (debugMode) {
             System.out.println("Generated " + rope);
         }
     }
@@ -169,8 +171,8 @@ public class RopeCuttingProblem {
      *
      * @param debug a boolean to say whether this class should debug log to the console or not.
      */
-    public void setDebug(boolean debug) {
-        DEBUG = debug;
+    public void setDebugMode(boolean debug) {
+        debugMode = debug;
     }
 
     /**
@@ -323,7 +325,7 @@ public class RopeCuttingProblem {
 
 
         // Print status to console (when debugging only!).
-        if (DEBUG) {
+        if (debugMode) {
             System.out.printf("Cutting %dm from a rope: initial length: %dm, new length: %dm\n", lengthToCut, initialLength, newLength);
         }
 
@@ -331,7 +333,7 @@ public class RopeCuttingProblem {
         if (newLength < MIN_ROPE_STOCK_LENGTH) {
             ropes.remove(rope);
 
-            if (DEBUG) {
+            if (debugMode) {
                 System.out.println("Removed (under length threshold): " + rope);
             }
 

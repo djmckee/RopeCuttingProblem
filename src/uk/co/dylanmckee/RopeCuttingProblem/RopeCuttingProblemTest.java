@@ -18,10 +18,10 @@ public class RopeCuttingProblemTest {
     @Before
     public void setUp() throws Exception {
         // Initialise a test instance of the RopeCuttingProblem
-        ropeCuttingProblem = new RopeCuttingProblem(RopeCuttingProblemTest.TEST_NUMBER_OF_ORDERS);
+        ropeCuttingProblem = new RopeCuttingProblem(TEST_NUMBER_OF_ORDERS);
 
         // Ensure DEBUG is OFF for these unit tests - we're using them to measure time taken and printf() is a very slow function.
-        ropeCuttingProblem.setDebug(false);
+        ropeCuttingProblem.setDebugMode(false);
 
     }
 
