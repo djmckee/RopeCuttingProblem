@@ -16,6 +16,12 @@ public class RopeTest {
     // A test Rope instance
     private Rope rope;
 
+    // Constants for different rope lengths
+    private static final int SHORT_ROPE_LENGTH = 101;
+
+    // The long rope MUST be longer than the short rope...
+    private static final int LONG_ROPE_LENGTH = 199;
+
     @Before
     public void setUp() throws Exception {
         // Create test Rope instance
@@ -31,7 +37,7 @@ public class RopeTest {
     @Test
     public void testLength() throws Exception {
         // Set the length, then get the length, and check they're equal
-        int testLength = 105;
+        final int testLength = SHORT_ROPE_LENGTH;
 
         rope.setLength(testLength);
 
@@ -46,11 +52,11 @@ public class RopeTest {
     @Test
     public void testCompareTo() throws Exception {
         // Make our test rope a long rope...
-        rope.setLength(199);
+        rope.setLength(LONG_ROPE_LENGTH);
 
         // Create a shorter test rope to compare to...
         Rope shortRope = new Rope();
-        shortRope.setLength(101);
+        shortRope.setLength(SHORT_ROPE_LENGTH);
 
         int delta = rope.getLength() - shortRope.getLength();
 
@@ -62,7 +68,7 @@ public class RopeTest {
 
         // Create a rope the same length as the short rope...
         Rope anotherShortRope = new Rope();
-        anotherShortRope.setLength(shortRope.getLength());
+        anotherShortRope.setLength(SHORT_ROPE_LENGTH);
 
         // Ensure the other short rope is equal...
         assertEquals(shortRope.compareTo(anotherShortRope), 0);
