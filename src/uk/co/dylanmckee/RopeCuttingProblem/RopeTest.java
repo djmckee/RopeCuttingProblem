@@ -64,7 +64,8 @@ public class RopeTest {
         assertEquals(rope.compareTo(shortRope), delta);
 
         // Ensure that the short rope is shorter
-        assertEquals(shortRope.compareTo(rope), -1 * delta);
+        final int invertedDelta = (-1 * delta);
+        assertEquals(shortRope.compareTo(rope), invertedDelta);
 
         // Create a rope the same length as the short rope...
         Rope anotherShortRope = new Rope();
