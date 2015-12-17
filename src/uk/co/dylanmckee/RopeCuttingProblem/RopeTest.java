@@ -26,12 +26,14 @@ public class RopeTest {
     public void setUp() throws Exception {
         // Create test Rope instance
         rope = new Rope();
+
     }
 
     @After
     public void tearDown() throws Exception {
         // Destroy test rope.
         rope = null;
+
     }
 
     @Test

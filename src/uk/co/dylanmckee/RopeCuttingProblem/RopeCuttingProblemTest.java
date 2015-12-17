@@ -11,7 +11,7 @@ import org.junit.Test;
  */
 public class RopeCuttingProblemTest {
 
-    private static final int TEST_NUMBER_OF_ORDERS = 100000;
+    private static final int TEST_NUMBER_OF_ORDERS = 90000;
 
     private RopeCuttingProblem ropeCuttingProblem;
 

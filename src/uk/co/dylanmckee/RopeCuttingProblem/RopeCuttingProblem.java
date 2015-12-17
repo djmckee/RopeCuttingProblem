@@ -10,7 +10,7 @@ import java.util.*;
 public class RopeCuttingProblem {
     // A boolean to enable logging for debug purposes (to be switched off in production and in time based tests!)
     // (defaults to false for safety)
-    private boolean debugMode;
+    private boolean debugMode = false;
 
     // The minimum length of the rope from suppliers, in meters
     private static final int MIN_SUPPLIER_LENGTH = 100;
