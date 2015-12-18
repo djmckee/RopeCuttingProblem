@@ -8,39 +8,62 @@ import java.util.*;
  * Date: 25/11/2015
  */
 public class RopeCuttingProblem {
-    // A boolean to enable logging for debug purposes (to be switched off in production and in time based tests!)
-    // (defaults to false for safety)
+    /**
+     * A boolean to enable logging for debug purposes (to be switched off in production and in time based tests!)
+     * (defaults to false for safety)
+     */
     private boolean debugMode = false;
 
-    // The minimum length of the rope from suppliers, in meters
+    /**
+     * The minimum length of the rope from suppliers, in meters
+     */
     private static final int MIN_SUPPLIER_LENGTH = 100;
 
-    // The maximum length of the rope from suppliers, in meters
+    /**
+     * The maximum length of the rope from suppliers, in meters
+     */
     private static final int MAX_SUPPLIER_LENGTH = 200;
 
-    // The minimum length a customer's rope order can be, in meters.
+    /**
+     * The minimum length a customer's rope order can be, in meters.
+     */
     private static final int MIN_ORDER_LENGTH = 1;
 
-    // The maximum length a customer's rope order can be, in meters.
+    /**
+     * The maximum length a customer's rope order can be, in meters.
+     */
     private static final int MAX_ORDER_LENGTH = 100;
 
-    // The minimum length, in meters, that a rope can be to be allowed in stock.
-    // If the length is below this threshold, it's removed from our stock.
+    /**
+     * The minimum length, in meters, that a rope can be to be allowed in stock.
+     * If the length is below this threshold, it's removed from our stock.
+     */
     private static final int MIN_ROPE_STOCK_LENGTH = 5;
 
-    // A queue of rope orders to be cut, using the LinkedList queue implementation.
+    /**
+     * A queue of rope orders to be cut, using the LinkedList queue implementation.
+     */
     private final Queue<Order> orders = new LinkedList<Order>();
 
-    // A stack of pre-computed ropes from the manufacturer, so ordering time doesn't affect runtime analysis
+    /**
+     * A stack of pre-computed ropes from the manufacturer, so ordering time doesn't affect runtime analysis
+     */
     private final Stack<Rope> ropeSupply = new Stack<Rope>();
 
-    // A list of ropes in-stock to cut the orders from, stored in an ArrayList.
+    /**
+     * A list of ropes in-stock to cut the orders from, stored in an ArrayList.
+     */
     private final List<Rope> ropes = new ArrayList<Rope>();
 
-    // The number of orders to generate and process, as passed to the constructor
+    /**
+     * The number of orders to generate and process, as passed to the constructor
+     */
     private final int numberOfOrders;
 
-    // The number of coils of rope supplied from the manufacturer (i.e. transferred from the ropeSupply stack to the ropes array).
+    /**
+     * The number of coils of rope supplied from the manufacturer
+     * (i.e. transferred from the ropeSupply stack to the ropes array).
+     */
     private int numberOfCoilsOfRopeOrdered;
 
 
