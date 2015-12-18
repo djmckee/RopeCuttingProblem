@@ -61,7 +61,7 @@ public class RopeCuttingProblem {
 
     /**
      * An internal method to pre-compute random length ropes into the ropes array, so as not to count this operation in
-     * the time taken to perform the actual rope cutting algorithms, making the test fairer & reducing code duplication.
+     * the time taken to perform the actual rope cutting algorithms, making the test fairer and reducing code duplication.
      * The length of the rope is always within the bounds of ropes supplied by the manufacturer.
      *
      * This method also pre-computes some rope from the manufacturer; adding it to the ropeSupply stack.
