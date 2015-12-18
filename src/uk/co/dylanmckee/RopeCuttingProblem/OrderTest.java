@@ -13,21 +13,35 @@ import static org.junit.Assert.*;
  * Date: 25/11/2015
  */
 public class OrderTest {
-    // A test Order instance
+    /**
+     * A test Order instance
+     */
     private Order order;
 
+    /**
+     * Creates a test Order instance before every unit test.
+     * @throws Exception if an exception is thrown by this method, the test has failed.
+     */
     @Before
     public void setUp() throws Exception {
         // Create test Order instance
         order = new Order();
     }
 
+    /**
+     * Destroys the test Order instance after every unit test.
+     * @throws Exception if an exception is thrown by this method, the test has failed.
+     */
     @After
     public void tearDown() throws Exception {
         // Destroy test order.
         order = null;
     }
 
+    /**
+     * Tests that the length of the order can be set and retrieved.
+     * @throws Exception if an exception is thrown by this method, the test has failed.
+     */
     @Test
     public void testLength() throws Exception {
         // Set the length, then get the length, and check they're equal
@@ -42,7 +56,11 @@ public class OrderTest {
 
     }
 
-
+    /**
+     * Tests that an order can be compared to see if it is equal to, shorter than or longer than another order instance
+     * in length.
+     * @throws Exception if an exception is thrown by this method, the test has failed.
+     */
     @Test
     public void testCompareTo() throws Exception {
         // Make our test order a long order...
@@ -69,6 +87,10 @@ public class OrderTest {
 
     }
 
+    /**
+     * Tests that the toString method produces a String to represent the order.
+     * @throws Exception if an exception is thrown by this method, the test has failed.
+     */
     @Test
     public void testToString() throws Exception {
         // Ensure that the toString method doesn't return null, and doesn't throw any exceptions.

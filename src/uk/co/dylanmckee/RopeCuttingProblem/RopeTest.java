@@ -13,15 +13,25 @@ import static org.junit.Assert.assertNotNull;
  * Date: 25/11/2015
  */
 public class RopeTest {
-    // A test Rope instance
+    /**
+     * A test Rope instance
+     */
     private Rope rope;
 
-    // Constants for different rope lengths
+    /**
+     * Constants for different rope lengths
+     */
     private static final int SHORT_ROPE_LENGTH = 101;
 
-    // The long rope MUST be longer than the short rope...
+    /**
+     * The long rope MUST be longer than the short rope...
+     */
     private static final int LONG_ROPE_LENGTH = 199;
 
+    /**
+     * Creates a test Rope instance before every unit test.
+     * @throws Exception if an exception is thrown by this method, the test has failed.
+     */
     @Before
     public void setUp() throws Exception {
         // Create test Rope instance
@@ -29,6 +39,10 @@ public class RopeTest {
 
     }
 
+    /**
+     * Destroys the test Rope instance after every unit test.
+     * @throws Exception if an exception is thrown by this method, the test has failed.
+     */
     @After
     public void tearDown() throws Exception {
         // Destroy test rope.
@@ -36,6 +50,10 @@ public class RopeTest {
 
     }
 
+    /**
+     * Tests that the length of the rope can be set and retrieved.
+     * @throws Exception if an exception is thrown by this method, the test has failed.
+     */
     @Test
     public void testLength() throws Exception {
         // Set the length, then get the length, and check they're equal
@@ -50,7 +68,11 @@ public class RopeTest {
 
     }
 
-
+    /**
+     * Tests that a rope can be compared to see if it is equal to, shorter than or longer than another rope instance
+     * in length.
+     * @throws Exception if an exception is thrown by this method, the test has failed.
+     */
     @Test
     public void testCompareTo() throws Exception {
         // Make our test rope a long rope...
@@ -78,6 +100,10 @@ public class RopeTest {
 
     }
 
+    /**
+     * Tests that the toString method produces a String to represent the rope.
+     * @throws Exception if an exception is thrown by this method, the test has failed.
+     */
     @Test
     public void testToString() throws Exception {
         // Ensure that the toString method doesn't return null, and doesn't throw any exceptions.

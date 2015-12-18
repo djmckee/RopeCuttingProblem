@@ -1,15 +1,21 @@
 package uk.co.dylanmckee.RopeCuttingProblem;
 
 /**
- * Purpose: A main testing class to create an instance of and run my Java solution to the Rope Cutting Problem.
+ * Purpose: A main testing class to create an instance of and run my Java solution to the Rope Cutting Problem, for manual logic and correctness testing.
  * Author: Dylan McKee
  * Date: 25/11/2015
  */
 public class Main {
 
-    // A constant number of orders, to use within the test of the
+    /**
+     * A constant number of orders, to use within this correctness testing test class.
+     */
     public static final int NUMBER_OF_ORDERS = 1000;
 
+    /**
+     * The main method instantiates the test instances and runs both algorithms in debug mode.
+     * @param args none.
+     */
     public static void main(String[] args) {
         System.out.println("Performing first fit rope cutting:");
 

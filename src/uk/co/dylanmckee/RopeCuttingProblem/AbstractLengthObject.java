@@ -9,10 +9,15 @@ package uk.co.dylanmckee.RopeCuttingProblem;
  * Date: 26/11/2015
  */
 public abstract class AbstractLengthObject implements Comparable<AbstractLengthObject> {
-    // The length of the object, in meters
+    /**
+     * The length of the object, in meters.
+     */
     private int length;
 
-    // Ensure classes that subclass this all implement toString by contract
+    /**
+     * Ensure classes that subclass this all implement toString by contract
+     * @return a human readable string representation of the current instance.
+     */
     public abstract String toString();
 
     /**
