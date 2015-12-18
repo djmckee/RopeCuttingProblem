@@ -152,6 +152,12 @@ public class RopeCuttingProblem {
         // And add on the minimum to make sure it's in bounds
         wholeResult = wholeResult + min;
 
+        // Ensure the generated number is in the bounds; if not then throw an appropriate exception
+        if (wholeResult < min || wholeResult > max) {
+            // Out of bounds!
+            throw new IndexOutOfBoundsException("Random number generated is out of specified bounds!");
+        }
+
         // Return integer result
         return wholeResult;
 
