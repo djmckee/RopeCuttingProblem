@@ -136,10 +136,22 @@ public class RopeCuttingProblem {
 
 
     /**
-     * An internal method to generate a random integer between the specified range (using the Math.random psuedorandom
+     * An internal method to generate a random integer between the specified range (using the Math.random psuedo-random
      * generation method), and return the generated integer.
+     *
+     * This method uses the Math.random() Java library function, which is automatically seeded by system time.
+     *
+     * @param min the minimum integer that the random number generator should generate
+     * @param max the maximum number that the random number generator should generate
+     * @return a random integer, between the min and max range specified
      */
     private int generateRandomInteger(int min, int max) {
+        // Assert that max is greater than or equal to minimum...
+        if (min > max) {
+            // Minimum cannot be greater than maximum; throw exception.
+            throw new IllegalArgumentException("Minimum cannot be greater than maximum in range!");
+        }
+
         // Get a random double between 0.0 and 1.0...
         double randomMultiplier = Math.random();
 
@@ -216,6 +228,8 @@ public class RopeCuttingProblem {
 
     /**
      * An implementation of the FFRCP algorithm; this algorithm cuts from the first rope that the cut fits.
+     *
+     * @param orderLength the length of the order to cut from the rope, as an integer, in meters.
      */
     private void firstFitRopeCutting(int orderLength) {
         // A flag to mark if the order's complete...
@@ -273,6 +287,8 @@ public class RopeCuttingProblem {
 
     /**
      * An implementation of the BFRCP algorithm; this algorithm cuts from the first rope that the cut fits.
+     *
+     * @param orderLength the length of the order to cut from the rope, as an integer, in meters.
      */
     private void bestFitRopeCutting(int orderLength) {
         // Sort the ropes array in ascending order, so that the rope with the least amount left on it comes first,
@@ -315,6 +331,9 @@ public class RopeCuttingProblem {
      * An internal method to remove the specified length from the specified rope. If the rope falls under the threshold
      * to be kept in stock, then this method also removes it from stock after deducting the length.
      * This method helps to reduce code duplication between the two different algorithm implementations.
+     *
+     * @param rope the rope instance to cut the length from.
+     * @param lengthToCut the length to cut from the rope, as an integer, in meters.
      */
     private void cutLengthFromRope(Rope rope, int lengthToCut) {
         // Do some basic bounds checking...
